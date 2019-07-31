@@ -53,7 +53,7 @@ wget https://msmarco.blob.core.windows.net/msmarcoranking/collectionandqueries.t
 tar -xvf ${DATA_DIR}/collectionandqueries.tar.gz -C ${DATA_DIR}
 ```
 
-To confirm, `collectionandqueries.tar.gz` should have MD5 checksum of `fed5aa512935c7b62787cb68ac9597d6`.
+To confirm, `collectionandqueries.tar.gz` should have MD5 checksum of `31644046b18952c1386cd4564ba2ae69`.
 
 The scripts below convert the data to a format that can be consumed by
 OpenNMT training and inference scripts:
@@ -177,7 +177,7 @@ python ./OpenNMT-py/translate.py \
   -output ${DATA_DIR}/opennmt_format/pred-collection_beam5.txt \
   -batch_size 32 \
   -beam_size 5 \
-  --n_best 5 \
+  -n_best 5 \
   -replace_unk \
   -report_time
 ```

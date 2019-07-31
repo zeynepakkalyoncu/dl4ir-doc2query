@@ -40,8 +40,32 @@ def convert_dataset(collection, queries, qrels, set_name):
     query = queries[query_id]
     for doc_id in relevant_doc_ids:
       doc = collection[doc_id]
-      src_file.write(doc + '\n')
-      tgt_file.write(query + '\n')
+
+      # Chop
+      start = 0
+      window = 20
+      stride = 10
+      tokens = doc.strip().split(' ')
+      count = 0
+      while start + window <= len(tokens):
+        count += 1
+        src_file.write('{}\n'.format(' '.join(tokens[start:(start + window)])))
+        # print('{}\n'.format(' '.join(tokens[start:(start + window)])))
+        start += stride
+      if start < len(tokens):
+        count += 1
+        src_file.write('{}\n'.format(' '.join(tokens[start:])))
+        # print('{}\n'.format(' '.join(tokens[start:])))
+
+      # print(count)
+      #
+      # print('---')
+
+      for i in range(count):
+        tgt_file.write(query + '\n')
+
+      # src_file.write(doc + '\n')
+      # tgt_file.write(query + '\n')
 
       if i % 100000 == 0:
         print('Converting {} set, query {} of {}'.format(
